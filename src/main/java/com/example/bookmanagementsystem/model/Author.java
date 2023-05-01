@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -20,8 +21,8 @@ public class Author {
     private LocalDate dateOfDeath;
     private String nationality;
     private String biography;
-//    @OneToMany(mappedBy = "Book")
-//    private List<Book> books;
+    @ManyToMany(targetEntity = Book.class)
+    private List<Book> books;
 
     @JsonCreator
     public Author(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName) {
@@ -87,6 +88,14 @@ public class Author {
         return biography;
     }
 
+    public List<Book> getBooks() {
+        return books;
+    }
+
+    public void setBooks(List<Book> books) {
+        this.books = books;
+    }
+
     public void setBiography(String biography) {
         this.biography = biography;
     }
@@ -101,6 +110,7 @@ public class Author {
         sb.append(", dateOfDeath=").append(dateOfDeath);
         sb.append(", nationality='").append(nationality).append('\'');
         sb.append(", biography='").append(biography).append('\'');
+        sb.append(", books=").append(books);
         sb.append('}');
         return sb.toString();
     }
