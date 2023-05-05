@@ -1,20 +1,16 @@
 package com.example.bookmanagementsystem.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Document
 public class Author {
 
-    private @Id
-    @GeneratedValue Long id;
+    @Id
+    private String id;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
@@ -22,23 +18,16 @@ public class Author {
     private String nationality;
     private String biography;
 
-    @JsonCreator
-    public Author(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-    }
-
-
 
     public Author() {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -90,13 +79,17 @@ public class Author {
         this.biography = biography;
     }
 
-    public Author(Long id, String firstName, String lastName, LocalDate dateOfBirth, LocalDate dateOfDeath, String nationality, String biography) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.dateOfBirth = dateOfBirth;
-        this.dateOfDeath = dateOfDeath;
-        this.nationality = nationality;
-        this.biography = biography;
+    @Override
+    public String toString() {
+        final StringBuffer sb = new StringBuffer("Author{");
+        sb.append("id='").append(id).append('\'');
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", dateOfBirth=").append(dateOfBirth);
+        sb.append(", dateOfDeath=").append(dateOfDeath);
+        sb.append(", nationality='").append(nationality).append('\'');
+        sb.append(", biography='").append(biography).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

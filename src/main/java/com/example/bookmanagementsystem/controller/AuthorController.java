@@ -37,13 +37,13 @@ public class AuthorController {
         return createdAuthor;
     }
 
-    @GetMapping("/")
+    /*@GetMapping("/")
     List<Author> all() {
         return repository.findAll();
     }
 
     @GetMapping("/{id}")
-    public Author one(@PathVariable Long id) {
+    public Author one(@PathVariable String id) {
         return repository.findById(id)
                 .orElseThrow(() -> new AuthorNotFoundException(id));
     }
@@ -63,7 +63,7 @@ public class AuthorController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         repository.deleteById(id);
-    }
+    }*/
 
     private void sendMessage(String topicName, String message) {
         CompletableFuture<SendResult<String, String>> future = kafkaTemplate.send(topicName, message);
