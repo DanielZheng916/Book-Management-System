@@ -21,8 +21,6 @@ public class Author {
     private LocalDate dateOfDeath;
     private String nationality;
     private String biography;
-    @ManyToMany(targetEntity = Book.class)
-    private List<Book> books;
 
     @JsonCreator
     public Author(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName) {
@@ -88,30 +86,17 @@ public class Author {
         return biography;
     }
 
-    public List<Book> getBooks() {
-        return books;
-    }
-
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }
-
     public void setBiography(String biography) {
         this.biography = biography;
     }
 
-    @Override
-    public String toString() {
-        final StringBuffer sb = new StringBuffer("Author{");
-        sb.append("id=").append(id);
-        sb.append(", firstName='").append(firstName).append('\'');
-        sb.append(", lastName='").append(lastName).append('\'');
-        sb.append(", dateOfBirth=").append(dateOfBirth);
-        sb.append(", dateOfDeath=").append(dateOfDeath);
-        sb.append(", nationality='").append(nationality).append('\'');
-        sb.append(", biography='").append(biography).append('\'');
-        sb.append(", books=").append(books);
-        sb.append('}');
-        return sb.toString();
+    public Author(Long id, String firstName, String lastName, LocalDate dateOfBirth, LocalDate dateOfDeath, String nationality, String biography) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.dateOfBirth = dateOfBirth;
+        this.dateOfDeath = dateOfDeath;
+        this.nationality = nationality;
+        this.biography = biography;
     }
 }
