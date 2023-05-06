@@ -2,10 +2,17 @@ package com.example.bookmanagementsystem.controller;
 
 import com.example.bookmanagementsystem.exception.AuthorNotFoundException;
 import com.example.bookmanagementsystem.model.Author;
+import com.example.bookmanagementsystem.model.AuthorWithBookInfo;
 import com.example.bookmanagementsystem.repository.AuthorRepository;
 import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.mongodb.core.MongoTemplate;
+import org.springframework.data.mongodb.core.aggregation.Aggregation;
+import org.springframework.data.mongodb.core.aggregation.AggregationOperation;
+import org.springframework.data.mongodb.core.aggregation.AggregationResults;
+import org.springframework.data.mongodb.core.aggregation.LookupOperation;
+import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.kafka.support.SendResult;
 import org.springframework.web.bind.annotation.*;
@@ -24,6 +31,9 @@ public class AuthorController {
     @Value(value = "${author.topic.name}")
     private String topicAuthor;
 
+    @Autowired
+    private MongoTemplate mongoTemplate;
+
     public AuthorController(AuthorRepository repository, KafkaTemplate<String, String> kafkaTemplate) {
         this.repository = repository;
         this.kafkaTemplate = kafkaTemplate;
@@ -39,7 +49,20 @@ public class AuthorController {
 
     @GetMapping("/")
     List<Author> all() {
-        return repository.findAll();
+//        return repository.findAll();
+//        return repository.findAllWithBookInfo();
+
+        AggregationOperation lookupOperation = Aggregation.lookup("book", "booksID", "id", "book");
+        Aggregation aggregation = Aggregation.newAggregation(
+                Aggregation.match(new Criteria()), // matches all documents in the collection
+                lookupOperation
+        );
+        AggregationResults<Author> results = mongoTemplate.aggregate(aggregation, "author", Author.class);
+        List<Author> authorsWithBooks = results.getMappedResults();
+
+        System.out.println("stop");
+
+        return authorsWithBooks;
     }
 
     @GetMapping("/{id}")

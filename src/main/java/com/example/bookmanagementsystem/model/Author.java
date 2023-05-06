@@ -3,6 +3,7 @@ package com.example.bookmanagementsystem.model;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.annotation.Transient;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
@@ -21,6 +22,9 @@ public class Author {
     private String nationality;
     private String biography;
     private List<String> booksID = new ArrayList<>();
+
+    @Transient
+    private List<Book> books;
 
     @JsonCreator
     public Author(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName) {
