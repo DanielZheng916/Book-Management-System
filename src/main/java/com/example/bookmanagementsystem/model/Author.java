@@ -6,6 +6,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -19,8 +20,7 @@ public class Author {
     private LocalDate dateOfDeath;
     private String nationality;
     private String biography;
-//    @ManyToMany(targetEntity = Book.class)
-//    private List<Book> books;
+    private List<String> booksID = new ArrayList<>();
 
     @JsonCreator
     public Author(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName) {
@@ -86,13 +86,13 @@ public class Author {
         return biography;
     }
 
-    /*public List<Book> getBooks() {
-        return books;
+    public List<String> getBooksID() {
+        return booksID;
     }
 
-    public void setBooks(List<Book> books) {
-        this.books = books;
-    }*/
+    public void setBooksID(List<String> booksID) {
+        this.booksID = booksID;
+    }
 
     public void setBiography(String biography) {
         this.biography = biography;
@@ -101,14 +101,14 @@ public class Author {
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Author{");
-        sb.append("id=").append(id);
+        sb.append("id='").append(id).append('\'');
         sb.append(", firstName='").append(firstName).append('\'');
         sb.append(", lastName='").append(lastName).append('\'');
         sb.append(", dateOfBirth=").append(dateOfBirth);
         sb.append(", dateOfDeath=").append(dateOfDeath);
         sb.append(", nationality='").append(nationality).append('\'');
         sb.append(", biography='").append(biography).append('\'');
-//        sb.append(", books=").append(books);
+        sb.append(", booksID=").append(booksID);
         sb.append('}');
         return sb.toString();
     }

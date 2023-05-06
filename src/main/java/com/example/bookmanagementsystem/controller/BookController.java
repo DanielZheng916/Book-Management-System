@@ -18,11 +18,11 @@ import java.util.List;
 public class BookController {
 
     private BookRepository repository;
-//    private AuthorRepository authorRepository;
+    private AuthorRepository authorRepository;
 
     public BookController(BookRepository repository, AuthorRepository authorRepository) {
         this.repository = repository;
-//        this.authorRepository = authorRepository;
+        this.authorRepository = authorRepository;
     }
 
     @PostMapping("/")
@@ -30,31 +30,33 @@ public class BookController {
         return repository.save(book);
     }
 
-    /*@PostMapping("/")
-    public Book create(@RequestBody Book book) {
-        List<Author> authors = book.getAuthors();
-        if (authors != null) {
-            List<Author> newAuthors = new LinkedList<>();
-            for (Author author : authors) {
-                newAuthors.add(authorRepository.save(author));
-            }
-            book.setAuthors(newAuthors);
-        }
-
-        return repository.save(book);
-    }
+//    @PostMapping("/")
+//    public Book create(@RequestBody Book book) {
+//        List<String> authorsID = book.getAuthorsID();
+//        if (authorsID != null && authorsID.size() != 0) {
+//            List<Author> newAuthors = new LinkedList<>();
+//            for (String authorID : authorsID) {
+//                newAuthors.add(authorRepository.save(author));
+//            }
+//            book.setAuthors(newAuthors);
+//        }
+//
+//        return repository.save(book);
+//    }
 
     @PutMapping("/")
     public Book addAuthor(@RequestBody BookAuthor bookAuthor) {
-        Long bookID = bookAuthor.getBookID();
-        Long authorID = bookAuthor.getAuthorID();
+        String bookID = bookAuthor.getBookID();
+        String authorID = bookAuthor.getAuthorID();
         Book book = repository.findById(bookID)
                 .orElseThrow(() -> new BookNotFoundException(bookID));
         Author author = authorRepository.findById(authorID)
                 .orElseThrow(() -> new AuthorNotFoundException(authorID));
-        book.getAuthors().add(author);
+        book.getAuthorsID().add(authorID);
+        author.getBooksID().add(bookID);
+        authorRepository.save(author);
 
         return repository.save(book);
-    }*/
+    }
 
 }

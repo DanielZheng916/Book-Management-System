@@ -5,6 +5,7 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 @Document
@@ -14,8 +15,7 @@ public class Book {
     private String id;
     private String title;
 
-    /*@ManyToMany(targetEntity = Author.class)
-    private List<Author> authors;*/
+    private List<String> authorsID = new ArrayList<>();
     private String ISBN;
     private String publisher;
     private LocalDate publicationDate;
@@ -117,20 +117,20 @@ public class Book {
         this.description = description;
     }
 
-    /*public List<Author> getAuthors() {
-        return authors;
+    public List<String> getAuthorsID() {
+        return authorsID;
     }
 
-    public void setAuthors(List<Author> authors) {
-        this.authors = authors;
-    }*/
+    public void setAuthorsID(List<String> authorsID) {
+        this.authorsID = authorsID;
+    }
 
     @Override
     public String toString() {
         final StringBuffer sb = new StringBuffer("Book{");
-        sb.append("id=").append(id);
+        sb.append("id='").append(id).append('\'');
         sb.append(", title='").append(title).append('\'');
-//        sb.append(", authors=").append(authors);
+        sb.append(", authorsID=").append(authorsID);
         sb.append(", ISBN='").append(ISBN).append('\'');
         sb.append(", publisher='").append(publisher).append('\'');
         sb.append(", publicationDate=").append(publicationDate);

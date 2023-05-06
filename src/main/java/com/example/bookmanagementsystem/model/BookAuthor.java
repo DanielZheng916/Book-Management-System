@@ -1,25 +1,25 @@
 package com.example.bookmanagementsystem.model;
 
 public class BookAuthor {
-    private Long bookID;
-    private Long authorID;
+    private String bookID;
+    private String authorID;
 
     public BookAuthor() {
     }
 
-    public Long getBookID() {
+    public String getBookID() {
         return bookID;
     }
 
-    public void setBookID(Long bookID) {
+    public void setBookID(String bookID) {
         this.bookID = bookID;
     }
 
-    public Long getAuthorID() {
+    public String getAuthorID() {
         return authorID;
     }
 
-    public void setAuthorID(Long authorID) {
+    public void setAuthorID(String authorID) {
         this.authorID = authorID;
     }
 }
