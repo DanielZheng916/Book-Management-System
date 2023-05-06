@@ -1,18 +1,17 @@
 package com.example.bookmanagementsystem.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Document
 public class Book {
 
-    private @Id
-    @GeneratedValue Long id;
+    @Id
+    private String id;
     private String title;
 
     /*@ManyToMany(targetEntity = Author.class)
@@ -30,11 +29,11 @@ public class Book {
     public Book() {
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 

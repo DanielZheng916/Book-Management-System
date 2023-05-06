@@ -25,6 +25,11 @@ public class BookController {
 //        this.authorRepository = authorRepository;
     }
 
+    @PostMapping("/")
+    public Book create(@RequestBody Book book) {
+        return repository.save(book);
+    }
+
     /*@PostMapping("/")
     public Book create(@RequestBody Book book) {
         List<Author> authors = book.getAuthors();
