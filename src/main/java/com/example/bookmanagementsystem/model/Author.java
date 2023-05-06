@@ -2,27 +2,25 @@ package com.example.bookmanagementsystem.model;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToMany;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.time.LocalDate;
 import java.util.List;
 
-@Entity
+@Document
 public class Author {
 
-    private @Id
-    @GeneratedValue Long id;
+    @Id
+    private String id;
     private String firstName;
     private String lastName;
     private LocalDate dateOfBirth;
     private LocalDate dateOfDeath;
     private String nationality;
     private String biography;
-    @ManyToMany(targetEntity = Book.class)
-    private List<Book> books;
+//    @ManyToMany(targetEntity = Book.class)
+//    private List<Book> books;
 
     @JsonCreator
     public Author(@JsonProperty("firstName") String firstName, @JsonProperty("lastName") String lastName) {
@@ -36,11 +34,11 @@ public class Author {
 
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -88,13 +86,13 @@ public class Author {
         return biography;
     }
 
-    public List<Book> getBooks() {
+    /*public List<Book> getBooks() {
         return books;
     }
 
     public void setBooks(List<Book> books) {
         this.books = books;
-    }
+    }*/
 
     public void setBiography(String biography) {
         this.biography = biography;
@@ -110,7 +108,7 @@ public class Author {
         sb.append(", dateOfDeath=").append(dateOfDeath);
         sb.append(", nationality='").append(nationality).append('\'');
         sb.append(", biography='").append(biography).append('\'');
-        sb.append(", books=").append(books);
+//        sb.append(", books=").append(books);
         sb.append('}');
         return sb.toString();
     }

@@ -18,14 +18,14 @@ import java.util.List;
 public class BookController {
 
     private BookRepository repository;
-    private AuthorRepository authorRepository;
+//    private AuthorRepository authorRepository;
 
     public BookController(BookRepository repository, AuthorRepository authorRepository) {
         this.repository = repository;
-        this.authorRepository = authorRepository;
+//        this.authorRepository = authorRepository;
     }
 
-    @PostMapping("/")
+    /*@PostMapping("/")
     public Book create(@RequestBody Book book) {
         List<Author> authors = book.getAuthors();
         if (authors != null) {
@@ -50,6 +50,6 @@ public class BookController {
         book.getAuthors().add(author);
 
         return repository.save(book);
-    }
+    }*/
 
 }
