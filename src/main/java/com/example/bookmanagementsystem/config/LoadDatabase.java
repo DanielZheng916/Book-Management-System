@@ -15,6 +15,8 @@ public class LoadDatabase {
     @Bean
     CommandLineRunner initDatabase(AuthorRepository repository) {
 
+        repository.deleteAll();
+
         return args -> {
             log.info("Preloading " + repository.save(new Author("Bilbo", "Baggins")));
             log.info("Preloading " + repository.save(new Author("Frodo", "Baggins")));
