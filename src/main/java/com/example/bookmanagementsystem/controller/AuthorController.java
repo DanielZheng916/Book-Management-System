@@ -3,6 +3,7 @@ package com.example.bookmanagementsystem.controller;
 import com.example.bookmanagementsystem.exception.AuthorNotFoundException;
 import com.example.bookmanagementsystem.model.Author;
 import com.example.bookmanagementsystem.repository.AuthorRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 
+@Tag(name = "Author", description = "The author API")
 @RestController
 @RequestMapping("/authors")
 public class AuthorController {
